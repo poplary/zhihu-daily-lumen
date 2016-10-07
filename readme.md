@@ -10,4 +10,10 @@
 # 获取知乎日报的数据并存储图片到本地
 php artisan zhihu:crawl
 
+# 使用 crontab 定时获取数据
+crontab -e
+
+# 新增内容，半小时执行一次
+30 * * * *   cd /path/to/the/project/ && /usr/bin/php artisan zhihu:crawl
+
 ```
