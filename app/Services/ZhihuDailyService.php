@@ -131,42 +131,47 @@ class ZhihuDailyService{
                 ZhihuDaily::insert($v);
             }
         }
-        echo $date . '获取成功！' . PHP_EOL;
+        echo $date . ' 数据获取成功！' . PHP_EOL;
     }
 
     /**
      * 获取数据库中已有的最后日期
-     * 若无数据，则为20150102，只获取20150101年之后的数据
-     * @return  [type] $data
+     * 若无数据，则为20141231，只获取20150101年之后的数据
+     * @return  最后的日期
      */
     public function latestDate()
     {
+        // 由于获取的最后日期
         if(ZhihuDaily::count())
-            return (int)ZhihuDaily::max('date');
+            return ZhihuDaily::max('date');
         else
-            return 20150102;
+            return '20150101';
     }
 
     /**
      * 获取知乎日报的数据
      * 开始时间为数据库已有的最后时间或者20150101
      * 结束时间为当前时间的第二天
-     * @param  void
+     * @return  void
      */
     public function getZhihuDaily()
     {
 
         // 获取数据库中已有的最后日期
         $beginDate = $this->latestDate();
-        $time = strtotime($beginDate);
 
-        // 获取到明天的数据
+        // 数据库中的日期 +1，例如最后日期为 20150101，则得到 20150102，
+        // API 获取的是传入日期前一天的数据，
+        // 通过 API 传入 20150102 将获取到 20150101 的数据
+        $time = strtotime($beginDate) + 24 * 60 * 60;
+
+        // 传入明天的日期则会获取今天的数据
         $tommorowTime = strtotime('+1 day');
         $tomorrow = (int)date('Ymd', $tommorowTime);
         while($time < $tommorowTime) {
             $date_str = date('Ymd', $time);
             $this->someday($date_str);
-            $time += 3600*24;
+            $time += 24 * 60 * 60;
         }
     }
 

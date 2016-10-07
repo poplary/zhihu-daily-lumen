@@ -39,6 +39,7 @@ class ZhihuImageCommand extends Command
     public function handle()
     {
         $zhihuDaily = new ZhihuDailyService();
+        // 获取图片并本地保存
         $zhihuDaily->getZhihuImageBatch();
     }
 }

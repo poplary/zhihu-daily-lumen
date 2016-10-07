@@ -7,9 +7,7 @@
 配置完成后通过以下命令获取知乎日报的数据：
 
 ``` bash
-# 获取知乎日报的数据
+# 获取知乎日报的数据并存储图片到本地
 php artisan zhihu:crawl
 
-# 存储图片到本地
-php artisan zhihu:image
 ```

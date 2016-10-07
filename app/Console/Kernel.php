@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\ZhihuCrawlCommand',
-        'App\Console\Commands\ZhihuImageCommand'
+        // 'App\Console\Commands\ZhihuImageCommand'
     ];
 
     /**

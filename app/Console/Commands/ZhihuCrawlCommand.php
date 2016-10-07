@@ -19,7 +19,7 @@ class ZhihuCrawlCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Get Zhihu Daily.';
+    protected $description = 'Get Zhihu Daily data.';
 
     /**
      * Create a new command instance.
@@ -39,6 +39,9 @@ class ZhihuCrawlCommand extends Command
     public function handle()
     {
         $zhihuDaily = new ZhihuDailyService();
+        // 获取知乎日报数据
         $zhihuDaily->getZhihuDaily();
+        // 获取图片并本地保存
+        $zhihuDaily->getZhihuImageBatch();
     }
 }
