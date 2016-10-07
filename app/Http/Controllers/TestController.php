@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Services\ZhihuDailyService;
+
 class TestController extends Controller
 {
     /**
@@ -20,5 +22,4 @@ class TestController extends Controller
         // $crawl->someday('20150917');
         // echo $crawl->someday('20150917');
     }
-
 }

@@ -11,53 +11,51 @@
 |
 */
 
-$app->get('/', function() {
+$app->get('/', function () {
     echo 'lumen';
 });
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', function($api) {
-    $api->group(['namespace' => 'App\Http\Controllers\Api\V1'], function($api) {
-
+$api->version('v1', function ($api) {
+    $api->group(['namespace' => 'App\Http\Controllers\Api\V1'], function ($api) {
         $api->post('register', [
-            'as' => 'register',
-            'uses' => 'AuthController@register'
+            'as'   => 'register',
+            'uses' => 'AuthController@register',
         ]);
 
         $api->post('auth', [
-            'as' => 'auth',
-            'uses' => 'AuthController@authenticate'
+            'as'   => 'auth',
+            'uses' => 'AuthController@authenticate',
         ]);
 
-        $api->group(['prefix' => 'user', 'middleware' =>['auth']], function($api) {
+        $api->group(['prefix' => 'user', 'middleware' => ['auth']], function ($api) {
             $api->get('profile/me', [
-                'as' => 'user.profile',
-                'uses' => 'UserController@profile'
+                'as'   => 'user.profile',
+                'uses' => 'UserController@profile',
             ]);
 
             $api->get('profile/{id}', [
-                'as' => 'user.profile',
-                'uses' => 'UserController@profile'
+                'as'   => 'user.profile',
+                'uses' => 'UserController@profile',
             ]);
         });
 
-        $api->group([], function($api) {
+        $api->group([], function ($api) {
             $api->get('zhihu/latest', [
-                'as' => 'zhihu.latest',
-                'uses' => 'ZhihuController@latest'
+                'as'   => 'zhihu.latest',
+                'uses' => 'ZhihuController@latest',
             ]);
 
             $api->get('zhihu/day/{date}', [
-                'as' => 'zhihu.day',
-                'uses' => 'ZhihuController@day'
+                'as'   => 'zhihu.day',
+                'uses' => 'ZhihuController@day',
             ]);
 
             $api->get('profile/{id}', [
-                'as' => 'user.profile',
-                'uses' => 'UserController@profile'
+                'as'   => 'user.profile',
+                'uses' => 'UserController@profile',
             ]);
         });
     });
 });
-
