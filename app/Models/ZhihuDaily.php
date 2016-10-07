@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ZhihuDaily extends Model
 {
-
     // 软删除
     use SoftDeletes;
 

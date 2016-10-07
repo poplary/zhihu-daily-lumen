@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Services\ZhihuDailyService;
+use Illuminate\Console\Command;
 
 class ZhihuCrawlCommand extends Command
 {

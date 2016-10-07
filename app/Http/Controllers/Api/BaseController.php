@@ -3,23 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use JWTAuth;
-
 use Dingo\Api\Routing\Helpers;
+use JWTAuth;
 
 class BaseController extends Controller
 {
-
     use Helpers;
 
     /**
-     * 通过 token 判断用户
+     * 通过 token 判断用户.
+     *
      * @return \App\Models\User $user 已认证的用户信息数据
      */
     public function getAuthenticatedUser()
     {
         try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
