@@ -74,7 +74,7 @@ $app->singleton(
 $app->middleware([
     // App\Http\Middleware\ExampleMiddleware::class
     Barryvdh\Cors\HandleCors::class,
-    Barryvdh\Cors\HandlePreflightSimple::class
+    Barryvdh\Cors\HandlePreflightSimple::class,
 ]);
 
 $app->routeMiddleware([
@@ -113,7 +113,7 @@ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Barryvdh\Cors\LumenServiceProvider::class);
 
 // dingo自定义相应格式
-Dingo\Api\Http\Response::addFormatter('json', new Dingo\Api\Http\Response\Format\Jsonp);
+Dingo\Api\Http\Response::addFormatter('json', new Dingo\Api\Http\Response\Format\Jsonp());
 
 // 认证提供者jwt
 app('Dingo\Api\Auth\Auth')->extend('jwt', function ($app) {
