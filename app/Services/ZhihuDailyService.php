@@ -108,17 +108,17 @@ class ZhihuDailyService
     /**
      * 存储数据.
      *
-     * @param [type] $data [description]
+     * @param  object $data 存储的数据
      *
-     * @return [type] [description]
+     * @return void
      */
-    public function store($data, $date = null)
+    public function store($data)
     {
         if (!$data) {
             echo '获取失败！'.PHP_EOL;
-
             return;
         }
+
         $date = $data->date;
         $insertData = [];
         foreach ($data->stories as $k => $v) {
@@ -137,7 +137,16 @@ class ZhihuDailyService
         // 颠倒顺序并执行
         foreach (array_reverse($insertData) as $v) {
             if (!ZhihuDaily::where('story_id', $v['story_id'])->first()) {
-                ZhihuDaily::insert($v);
+                // 存储数据
+                $zhihuDaily = new ZhihuDaily;
+                $zhihuDaily->date = $v['date'];
+                $zhihuDaily->story_id = $v['story_id'];
+                $zhihuDaily->title = $v['title'];
+                $zhihuDaily->type = $v['type'];
+                $zhihuDaily->multipic = $v['multipic'];
+                $zhihuDaily->ga_prefix = $v['ga_prefix'];
+                $zhihuDaily->image_origin = $v['image_origin'];
+                $zhihuDaily->save();
             }
         }
         echo $date.' 数据获取成功！'.PHP_EOL;
@@ -147,7 +156,7 @@ class ZhihuDailyService
      * 获取数据库中已有的最后日期
      * 若无数据，则为20141231，只获取20150101年之后的数据.
      *
-     * @return 最后的日期
+     * @return string 最后的日期
      */
     public function latestDate()
     {
