@@ -12,14 +12,14 @@ class ZhihuCrawlCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'zhihu:crawl';
+    protected $signature = 'zhihu:crawl {days=0}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Get Zhihu Daily data.';
+    protected $description = 'Get Zhihu Daily data';
 
     /**
      * Create a new command instance.
@@ -38,9 +38,11 @@ class ZhihuCrawlCommand extends Command
      */
     public function handle()
     {
+        $days = (int)$this->argument('days');
+
         $zhihuDaily = new ZhihuDailyService();
         // 获取知乎日报数据
-        $zhihuDaily->getZhihuDaily();
+        $zhihuDaily->getZhihuDaily($days);
         // 获取图片并本地保存
         $zhihuDaily->getZhihuImageBatch();
     }

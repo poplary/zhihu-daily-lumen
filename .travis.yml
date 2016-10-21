@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+
+services:
+  - mysql
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+  - mysql -e 'create database zhihu_lumen;'
+
+script: phpunit
+
+matrix:
+  fast_finish: true

@@ -11,9 +11,7 @@
 |
 */
 
-$app->get('/', function () {
-    echo 'lumen';
-});
+// $app->get('/', 'Api\V1\ApiController@index');
 
 $api = app('Dingo\Api\Routing\Router');
 
@@ -47,9 +45,9 @@ $api->version('v1', function ($api) {
                 'uses' => 'ZhihuController@latest',
             ]);
 
-            $api->get('zhihu/day/{date}', [
+            $api->get('zhihu/history/{date}', [
                 'as'   => 'zhihu.day',
-                'uses' => 'ZhihuController@day',
+                'uses' => 'ZhihuController@history',
             ]);
 
             $api->get('profile/{id}', [

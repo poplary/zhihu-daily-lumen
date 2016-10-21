@@ -24,19 +24,10 @@ class UserController extends BaseController
 
         $user = User::find($id);
 
-        if (!$user) {
-            return response()->json([
-                    'errcode' => 40101,
-                    'errmsg'  => '用户不存在',
-                ], 404);
-        }
+        if (!$user)
+            return response()->json($this->returnData(40101, '用户不存在'), 404);
 
-        return response()->json([
-                'errcode' => 0,
-                'errmsg'  => '获取成功',
-                'data'    => [
-                    'user' => $user,
-                ],
-            ], 200);
+        return response()->json($this->returnData(0, '获取成功', $user), 200);
+
     }
 }

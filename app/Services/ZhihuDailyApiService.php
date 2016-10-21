@@ -31,18 +31,18 @@ class ZhihuDailyApiService
         return $filter;
     }
 
-    public function latest($skip = 0, $count = 20)
+    public function latest($offset = 0, $count = 20)
     {
         $zhihu = new ZhihuDaily();
 
-        $skip = intval($skip);
+        $offset = intval($offset);
 
-        $data = $zhihu::orderBy('id', 'desc')->skip($skip)->take($count)->get();
+        $data = $zhihu::orderBy('id', 'desc')->skip($offset)->take($count)->get();
 
         return $this->filter($data);
     }
 
-    public function someday($date)
+    public function history($date)
     {
         $data = ZhihuDaily::where('date', $date)->get();
 

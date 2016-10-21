@@ -173,9 +173,11 @@ class ZhihuDailyService
      * 开始时间为数据库已有的最后时间或者20150101
      * 结束时间为当前时间的第二天.
      *
+     * @param  object $data 存储的数据
+     *
      * @return void
      */
-    public function getZhihuDaily()
+    public function getZhihuDaily($days = 0)
     {
 
         // 获取数据库中已有的最后日期
@@ -188,8 +190,10 @@ class ZhihuDailyService
 
         // 传入明天的日期则会获取今天的数据
         $tommorowTime = strtotime('+1 day');
-        $tomorrow = (int) date('Ymd', $tommorowTime);
-        while ($time < $tommorowTime) {
+
+        $endTime = $days > 0? ($time + 24 * 60 * 60 * $days): $tommorowTime;
+
+        while ($time < $endTime) {
             $date_str = date('Ymd', $time);
             $this->someday($date_str);
             $time += 24 * 60 * 60;

@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-class_alias('Tymon\JWTAuth\Facades\JWTAuth', 'JWTAuth');
+// class_alias('Tymon\JWTAuth\Facades\JWTAuth', 'JWTAuth');
 
 $app->withEloquent();
 

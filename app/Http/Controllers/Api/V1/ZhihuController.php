@@ -9,49 +9,46 @@ use Illuminate\Http\Request;
 class ZhihuController extends BaseController
 {
     /**
-     * 构造方法.
+     * 构造方法
      */
     public function __construct()
     {
     }
 
+    /**
+     * 获取最新的数据
+     * @param  Request $request 请求，offset之类的数据
+     * @return json             最新的数据
+     */
     public function latest(Request $request)
     {
-        $skip = (int) $request->input('skip') or 0;
+        $offset = (int) $request->input('offset')? : 0;
         $zhihu = new ZhihuDailyApiService();
-        $data = $zhihu->latest($skip);
+        $data = $zhihu->latest($offset);
 
         if (!$data) {
-            return response()->json([
-                    'errcode' => 40201,
-                    'errmsg'  => '获取不到数据',
-                ], 404);
+            return response()->json($this->returnData(40201, '获取不到数据'), 404);
         }
 
-        return response()->json([
-                'errcode' => 0,
-                'errmsg'  => '获取成功',
-                'list'    => $data,
-            ], 200);
+        return response()->json($this->returnData(0, '获取成功', $data), 200);
     }
 
-    public function day(Request $request, $date)
+    /**
+     * 获取历史数据
+     * @param  Request $request 请求的数据
+     * @param  string  $date    日期
+     * @return json             请求日期当天的数据
+     */
+    public function history(Request $request, $date)
     {
         $date = date('Ymd', strtotime($date));
         $zhihu = new ZhihuDailyApiService();
-        $data = $zhihu->someday($date);
+        $data = $zhihu->history($date);
 
         if (!$data) {
-            return response()->json([
-                    'errcode' => 40201,
-                    'errmsg'  => '获取不到数据',
-                ], 404);
+            return response()->json($this->returnData(40201, '获取不到数据，请确保日期正确（2015-01-01 至今）'), 404);
         }
 
-        return response()->json([
-                'errcode' => 0,
-                'errmsg'  => '获取成功',
-                'list'    => $data,
-            ], 200);
+        return response()->json($this->returnData(0, '获取成功', $data), 200);
     }
 }
