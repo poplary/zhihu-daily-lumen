@@ -18,14 +18,14 @@ class User extends Model implements AuthenticatableContract, JWTSubject
 
     // 注册用户的验证规则
     public static $registerRules = [
-        'email'                 => ['email', 'unique:users,email'],
-        'password'              => ['required', 'alpha_dash', 'confirmed'],
+        'email' => ['email', 'unique:users,email'],
+        'password' => ['required', 'alpha_dash', 'confirmed'],
         'password_confirmation' => ['required'],
     ];
 
     // 登录时的验证规则
     public static $authRules = [
-        'email'    => ['required', 'email'],
+        'email' => ['required', 'email'],
         'password' => ['required', 'alpha_dash'],
     ];
 

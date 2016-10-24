@@ -22,9 +22,9 @@ class ZhihuDailyApiService
         foreach ($data as $k => $v) {
             $filter[$k] = [
                 'title' => $v->title,
-                'url'   => zhihuDailyUrl($v->story_id),
+                'url' => zhihuDailyUrl($v->story_id),
                 'image' => imageUrl($v->image),
-                'date'  => date('Y-m-d', strtotime($v->date)),
+                'date' => date('Y-m-d', strtotime($v->date)),
             ];
         }
 

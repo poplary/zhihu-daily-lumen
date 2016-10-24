@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends BaseController
 {
@@ -86,6 +86,6 @@ class AuthController extends BaseController
         }
 
         // 返回认证信息
-        return response()->json($this->returnData(0, '认证成功', ['token' => $token, 'user'  => $user]), 200);
+        return response()->json($this->returnData(0, '认证成功', ['token' => $token, 'user' => $user]), 200);
     }
 }

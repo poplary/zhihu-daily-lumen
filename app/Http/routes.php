@@ -18,40 +18,40 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\V1'], function ($api) {
         $api->post('register', [
-            'as'   => 'register',
+            'as' => 'register',
             'uses' => 'AuthController@register',
         ]);
 
         $api->post('auth', [
-            'as'   => 'auth',
+            'as' => 'auth',
             'uses' => 'AuthController@authenticate',
         ]);
 
         $api->group(['prefix' => 'user', 'middleware' => ['auth']], function ($api) {
             $api->get('profile/me', [
-                'as'   => 'user.profile',
+                'as' => 'user.profile',
                 'uses' => 'UserController@profile',
             ]);
 
             $api->get('profile/{id}', [
-                'as'   => 'user.profile',
+                'as' => 'user.profile',
                 'uses' => 'UserController@profile',
             ]);
         });
 
         $api->group([], function ($api) {
             $api->get('zhihu/latest', [
-                'as'   => 'zhihu.latest',
+                'as' => 'zhihu.latest',
                 'uses' => 'ZhihuController@latest',
             ]);
 
             $api->get('zhihu/history/{date}', [
-                'as'   => 'zhihu.day',
+                'as' => 'zhihu.day',
                 'uses' => 'ZhihuController@history',
             ]);
 
             $api->get('profile/{id}', [
-                'as'   => 'user.profile',
+                'as' => 'user.profile',
                 'uses' => 'UserController@profile',
             ]);
         });
