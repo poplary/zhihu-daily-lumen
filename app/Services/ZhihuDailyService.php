@@ -108,14 +108,13 @@ class ZhihuDailyService
     /**
      * 存储数据.
      *
-     * @param  object $data 存储的数据
-     *
-     * @return void
+     * @param object $data 存储的数据
      */
     public function store($data)
     {
         if (!$data) {
             echo '获取失败！'.PHP_EOL;
+
             return;
         }
 
@@ -123,12 +122,12 @@ class ZhihuDailyService
         $insertData = [];
         foreach ($data->stories as $k => $v) {
             $insertData[$k] = [
-                'date'         => $date,
-                'story_id'     => $v->id,
-                'title'        => $v->title,
-                'type'         => $v->type,
-                'multipic'     => $v->type or null,
-                'ga_prefix'    => $v->ga_prefix,
+                'date' => $date,
+                'story_id' => $v->id,
+                'title' => $v->title,
+                'type' => $v->type,
+                'multipic' => $v->type or null,
+                'ga_prefix' => $v->ga_prefix,
                 'image_origin' => isset($v->images) ? $v->images['0'] : '',
             ];
         }
@@ -138,7 +137,7 @@ class ZhihuDailyService
         foreach (array_reverse($insertData) as $v) {
             if (!ZhihuDaily::where('story_id', $v['story_id'])->first()) {
                 // 存储数据
-                $zhihuDaily = new ZhihuDaily;
+                $zhihuDaily = new ZhihuDaily();
                 $zhihuDaily->date = $v['date'];
                 $zhihuDaily->story_id = $v['story_id'];
                 $zhihuDaily->title = $v['title'];
@@ -173,9 +172,7 @@ class ZhihuDailyService
      * 开始时间为数据库已有的最后时间或者20150101
      * 结束时间为当前时间的第二天.
      *
-     * @param  object $data 存储的数据
-     *
-     * @return void
+     * @param object $data 存储的数据
      */
     public function getZhihuDaily($days = 0)
     {
@@ -191,7 +188,7 @@ class ZhihuDailyService
         // 传入明天的日期则会获取今天的数据
         $tommorowTime = strtotime('+1 day');
 
-        $endTime = $days > 0? ($time + 24 * 60 * 60 * $days): $tommorowTime;
+        $endTime = $days > 0 ? ($time + 24 * 60 * 60 * $days) : $tommorowTime;
 
         while ($time < $endTime) {
             $date_str = date('Ymd', $time);
@@ -216,12 +213,12 @@ class ZhihuDailyService
         $fileName = $id.$ext;
         $filePath = base_path('public/assets/img/zhihu/'.$fileName);
 
-        if ($type == 1) {
+        if ($type === 1) {
             ob_start();
             readfile($url);
             $img = ob_get_contents();
             ob_end_clean();
-        } elseif ($type == 2) {
+        } elseif ($type === 2) {
             $ch = curl_init();
             $timeout = 5;
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -247,8 +244,6 @@ class ZhihuDailyService
 
     /**
      * 查找数据库，批量获取本地未存的图片.
-     *
-     * @return void
      */
     public function getZhihuImageBatch()
     {

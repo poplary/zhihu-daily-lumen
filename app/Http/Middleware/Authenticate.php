@@ -18,8 +18,6 @@ class Authenticate
      * Create a new middleware instance.
      *
      * @param \Illuminate\Contracts\Auth\Factory $auth
-     *
-     * @return void
      */
     public function __construct(Auth $auth)
     {
@@ -41,7 +39,7 @@ class Authenticate
             // return response('Unauthorized.', 401);
             return response()->json([
                 'errcode' => 40000,
-                'errmsg'  => '未认证或认证失败',
+                'errmsg' => '未认证或认证失败',
             ], 401);
         }
 

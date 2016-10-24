@@ -24,10 +24,10 @@ class UserController extends BaseController
 
         $user = User::find($id);
 
-        if (!$user)
+        if (!$user) {
             return response()->json($this->returnData(40101, '用户不存在'), 404);
+        }
 
         return response()->json($this->returnData(0, '获取成功', $user), 200);
-
     }
 }

@@ -5,8 +5,6 @@ class ApiTest extends TestCase
 {
     /**
      * A basic test example.
-     *
-     * @return void
      */
     public function testLatest()
     {
@@ -14,14 +12,12 @@ class ApiTest extends TestCase
         $this->get('/api/zhihu/latest')
                 ->seeJson([
                     'status' => 0,
-                    'message' => '获取成功'
+                    'message' => '获取成功',
                 ]);
     }
 
     /**
      * A basic test example.
-     *
-     * @return void
      */
     public function testHistory()
     {
@@ -29,14 +25,14 @@ class ApiTest extends TestCase
         $this->get('/api/zhihu/history/20150101')
                 ->seeJson([
                     'status' => 0,
-                    'message' => '获取成功'
+                    'message' => '获取成功',
                 ]);
 
         // 获取明天的数据，返回 40201 表示获取不到
         $tomorrow = date('Ymd', strtotime('tomorrow'));
-        $this->get('/api/zhihu/history/' . $tomorrow)
+        $this->get('/api/zhihu/history/'.$tomorrow)
                 ->seeJson([
-                    'status' => 40201
+                    'status' => 40201,
                 ]);
     }
 }
