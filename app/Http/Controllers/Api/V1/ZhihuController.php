@@ -5,34 +5,41 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Api\BaseController;
 use App\Services\ZhihuDailyApiService;
 use Illuminate\Http\Request;
+use App\Http\Transformers\ZhihuDailyTransformer;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ZhihuController extends BaseController
 {
+    /**
+     * @var ZhihuDailyApiService
+     */
+    protected $zhihuDaily;
+
     /**
      * 构造方法.
      */
     public function __construct()
     {
+        $this->zhihuDaily = new ZhihuDailyApiService();
     }
 
     /**
      * 获取最新的数据.
      *
-     * @param Request $request 请求，offset之类的数据
+     * @param Request $request 请求
      *
-     * @return json 最新的数据
+     * @return \Dingo\Api\Http\Response 最新的数据
      */
     public function latest(Request $request)
     {
-        $offset = (int) $request->input('offset') ?: 0;
-        $zhihu = new ZhihuDailyApiService();
-        $data = $zhihu->latest($offset);
+        $page  = (int) $request->input('page') ?: 1;
+        $data = $this->zhihuDaily->latest($page);
 
         if (!$data) {
-            return response()->json($this->returnData(40201, '获取不到数据'), 404);
+            throw new NotFoundHttpException('获取不到数据.');
         }
 
-        return response()->json($this->returnData(0, '获取成功', $data), 200);
+        return $this->response->paginator($data, new ZhihuDailyTransformer);
     }
 
     /**
@@ -41,18 +48,17 @@ class ZhihuController extends BaseController
      * @param Request $request 请求的数据
      * @param string  $date    日期
      *
-     * @return json 请求日期当天的数据
+     * @return \Dingo\Api\Http\Response 请求日期当天的数据
      */
     public function history(Request $request, $date)
     {
         $date = date('Ymd', strtotime($date));
-        $zhihu = new ZhihuDailyApiService();
-        $data = $zhihu->history($date);
+        $data = $this->zhihuDaily->history($date);
 
         if (!$data) {
-            return response()->json($this->returnData(40201, '获取不到数据，请确保日期正确（2015-01-01 至今）'), 404);
+            throw new NotFoundHttpException('获取不到数据，请确保日期正确（2015-01-01 至今）.');
         }
 
-        return response()->json($this->returnData(0, '获取成功', $data), 200);
+        return $this->response->collection($data, new ZhihuDailyTransformer);
     }
 }

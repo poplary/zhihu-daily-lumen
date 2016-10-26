@@ -16,36 +16,17 @@ class ZhihuDailyApiService
     {
     }
 
-    private function filter($data)
+    public function latest($page=1, $count=20)
     {
-        $filter = [];
-        foreach ($data as $k => $v) {
-            $filter[$k] = [
-                'title' => $v->title,
-                'url' => zhihuDailyUrl($v->story_id),
-                'image' => imageUrl($v->image),
-                'date' => date('Y-m-d', strtotime($v->date)),
-            ];
-        }
+        $data = ZhihuDaily::paginate($count, ['*'], 'page', $page);
 
-        return $filter;
-    }
-
-    public function latest($offset = 0, $count = 20)
-    {
-        $zhihu = new ZhihuDaily();
-
-        $offset = intval($offset);
-
-        $data = $zhihu::orderBy('id', 'desc')->skip($offset)->take($count)->get();
-
-        return $this->filter($data);
+        return $data;
     }
 
     public function history($date)
     {
         $data = ZhihuDaily::where('date', $date)->get();
 
-        return $this->filter($data);
+        return $data;
     }
 }
