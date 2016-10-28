@@ -30,7 +30,7 @@ class ApiTest extends TestCase
 
         // 获取明天的数据，返回 40201 表示获取不到
         $tomorrow = date('Ymd', strtotime('tomorrow'));
-        $this->get('/api/zhihu/history/' . $tomorrow)
+        $this->get('/api/zhihu/history/'.$tomorrow)
             ->seeJson([
                 'status' => 40201,
             ]);

@@ -2,17 +2,17 @@
 
 namespace App\Http\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use App\Models\User;
+use League\Fractal\TransformerAbstract;
 
 /**
- * Class UserTransformer
- * @package App\Http\Transformers
+ * Class UserTransformer.
  */
 class UserTransformer extends TransformerAbstract
 {
     /**
      * @param User $user
+     *
      * @return array
      */
     public function transform(User $user)

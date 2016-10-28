@@ -2,17 +2,17 @@
 
 namespace App\Http\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use App\Models\ZhihuDaily;
+use League\Fractal\TransformerAbstract;
 
 /**
- * Class ZhihuDailyTransformer
- * @package App\Http\Transformers
+ * Class ZhihuDailyTransformer.
  */
 class ZhihuDailyTransformer extends TransformerAbstract
 {
     /**
      * @param ZhihuDaily $zhihuDaily
+     *
      * @return array
      */
     public function transform(ZhihuDaily $zhihuDaily)

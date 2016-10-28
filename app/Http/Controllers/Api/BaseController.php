@@ -42,16 +42,16 @@ class BaseController extends Controller
     /**
      * 返回数据的格式.
      *
-     * @param int $status 状态码
+     * @param int    $status  状态码
      * @param string $message 返回的信息
-     * @param array $data 附加的数据
+     * @param array  $data    附加的数据
      *
      * @return array 返回数据的数组
      */
     public function returnData($status, $message, $data = null)
     {
         $returnArr = [
-            'status' => (int)$status,
+            'status' => (int) $status,
             'message' => $message,
         ];
 
