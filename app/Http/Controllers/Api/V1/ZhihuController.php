@@ -32,7 +32,7 @@ class ZhihuController extends BaseController
      */
     public function latest(Request $request)
     {
-        $page  = (int) $request->input('page') ?: 1;
+        $page = (int)$request->input('page') ?: 1;
         $data = $this->zhihuDaily->latest($page);
 
         if (!$data) {
@@ -46,7 +46,7 @@ class ZhihuController extends BaseController
      * 获取历史数据.
      *
      * @param Request $request 请求的数据
-     * @param string  $date    日期
+     * @param string $date 日期
      *
      * @return \Dingo\Api\Http\Response 请求日期当天的数据
      */

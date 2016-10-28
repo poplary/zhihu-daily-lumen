@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\ZhihuCrawlCommand',
-        // 'App\Console\Commands\ZhihuImageCommand'
     ];
 
     /**
@@ -24,6 +23,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        // 每天定时抓取知乎数据
+        $schedule->command('zhihu:crawl')
+            ->everyThirtyMinutes()
+            ->between('6:00', '20:00')
+            ->timezone('Asia/Shanghai');
     }
 }

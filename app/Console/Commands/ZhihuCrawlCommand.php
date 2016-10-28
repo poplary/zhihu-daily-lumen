@@ -36,7 +36,7 @@ class ZhihuCrawlCommand extends Command
      */
     public function handle()
     {
-        $days = (int) $this->argument('days');
+        $days = (int)$this->argument('days');
 
         $zhihuDaily = new ZhihuDailyService();
         // 获取知乎日报数据

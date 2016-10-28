@@ -16,9 +16,9 @@ class ZhihuDailyApiService
     {
     }
 
-    public function latest($page=1, $count=20)
+    public function latest($page = 1, $count = 20)
     {
-        $data = ZhihuDaily::paginate($count, ['*'], 'page', $page);
+        $data = ZhihuDaily::orderBy('id', 'desc')->paginate($count, ['*'], 'page', $page);
 
         return $data;
     }
