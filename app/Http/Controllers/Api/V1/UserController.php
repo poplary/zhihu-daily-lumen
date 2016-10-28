@@ -14,7 +14,7 @@ class UserController extends BaseController
      * 获取用户信息.
      *
      * @param Request $request 请求数据
-     * @param int $id 用户id
+     * @param int     $id      用户id
      *
      * @return \Dingo\Api\Http\Response 用户数据
      */

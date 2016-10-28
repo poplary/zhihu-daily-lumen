@@ -54,8 +54,8 @@ class ZhihuDailyService
     /**
      * 发送请求
      *
-     * @param string $url 请求链接
-     * @param array $params 请求参数
+     * @param string $url    请求链接
+     * @param array  $params 请求参数
      *
      * @return array 回应消息
      */
@@ -97,7 +97,7 @@ class ZhihuDailyService
      */
     public function someday($date)
     {
-        $url = $this->beforeUrl . $date;
+        $url = $this->beforeUrl.$date;
         $response = $this->httpGet($url);
         // 存储当天数据
         $this->store($response);
@@ -113,7 +113,7 @@ class ZhihuDailyService
     public function store($data)
     {
         if (!$data) {
-            echo '获取失败！' . PHP_EOL;
+            echo '获取失败！'.PHP_EOL;
 
             return;
         }
@@ -148,7 +148,7 @@ class ZhihuDailyService
                 $zhihuDaily->save();
             }
         }
-        echo $date . ' 数据获取成功！' . PHP_EOL;
+        echo $date.' 数据获取成功！'.PHP_EOL;
     }
 
     /**
@@ -200,9 +200,9 @@ class ZhihuDailyService
     /**
      * 获取图片存储到本地，以知乎日报id命名图片.
      *
-     * @param string $url 图片url
-     * @param string $id 知乎日报id
-     * @param int $type 获取类型：1为直接获取，2通过curl获取
+     * @param string $url  图片url
+     * @param string $id   知乎日报id
+     * @param int    $type 获取类型：1为直接获取，2通过curl获取
      *
      * @return string 文件名
      */
@@ -210,8 +210,8 @@ class ZhihuDailyService
     {
         $ext = strrchr($url, '.');
 
-        $fileName = $id . $ext;
-        $filePath = base_path('public/assets/img/zhihu/' . $fileName);
+        $fileName = $id.$ext;
+        $filePath = base_path('public/assets/img/zhihu/'.$fileName);
 
         if ($type === 1) {
             ob_start();
@@ -235,7 +235,7 @@ class ZhihuDailyService
             $zhihu = ZhihuDaily::where('story_id', $id)->first();
             $zhihu->image = $fileName;
             $zhihu->save();
-            echo $id . ' 获取图片成功！' . PHP_EOL;
+            echo $id.' 获取图片成功！'.PHP_EOL;
         }
         fclose($fp);
 
