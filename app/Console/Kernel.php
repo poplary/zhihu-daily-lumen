@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
         // 每天定时抓取知乎数据
         $schedule->command('zhihu:crawl')
             ->everyThirtyMinutes()
-            ->when(function() {
+            ->when(function () {
                 return date('H') >= 6 && date('H') <= 19;
             })
             ->timezone('Asia/Shanghai');
