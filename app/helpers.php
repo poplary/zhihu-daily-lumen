@@ -19,3 +19,10 @@ function zhihuDailyUrl($storyId)
 
     return $zhihuDailyUrl;
 }
+
+function apiUrl($value)
+{
+    $url = env('BASE_URL').'/'.$value;
+
+    return $url;
+}
