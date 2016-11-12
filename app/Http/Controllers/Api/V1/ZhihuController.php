@@ -53,25 +53,27 @@ class ZhihuController extends BaseController
     public function history(Request $request, $date)
     {
         $date = (int) date('Ymd', strtotime($date));
-        $lastDay = (int) date('Ymd', strtotime($date) - 24*3600);
-        $nextDay = (int) date('Ymd', strtotime($date) + 24*3600);
+        $lastDay = (int) date('Ymd', strtotime($date) - 24 * 3600);
+        $nextDay = (int) date('Ymd', strtotime($date) + 24 * 3600);
         $today = (int) date('Ymd');
-        
+
         $data = $this->zhihuDaily->history($date);
-        
+
         if ($data->count() < 1) {
             throw new NotFoundHttpException('获取不到数据，请确保日期正确（2015-01-01 至今）.');
         }
 
         $meta = [
             'lastPageUrl' => null,
-            'nextPageUrl' => null
+            'nextPageUrl' => null,
         ];
-        if($lastDay > 20150101 && $lastDay < $today)
-            $meta['lastPageUrl'] = apiUrl('zhihu/history/' . $lastDay);
+        if ($lastDay > 20150101 && $lastDay < $today) {
+            $meta['lastPageUrl'] = apiUrl('zhihu/history/'.$lastDay);
+        }
 
-        if($nextDay <= $today && $nextDay > 20150101)
-            $meta['nextPageUrl'] = apiUrl('zhihu/history/' . $nextDay);
+        if ($nextDay <= $today && $nextDay > 20150101) {
+            $meta['nextPageUrl'] = apiUrl('zhihu/history/'.$nextDay);
+        }
 
         return $this->response->collection($data, new ZhihuDailyTransformer())->setMeta($meta);
     }
