@@ -64,15 +64,16 @@ class ZhihuController extends BaseController
         }
 
         $meta = [
-            'lastPageUrl' => null,
-            'nextPageUrl' => null,
+            'lastDay' => null,
+            'nextDay' => null,
         ];
+
         if ($lastDay > 20150101 && $lastDay < $today) {
-            $meta['lastPageUrl'] = apiUrl('zhihu/history/'.$lastDay);
+            $meta['lastDay'] = date('Y-m-d', strtotime($lastDay));
         }
 
         if ($nextDay <= $today && $nextDay > 20150101) {
-            $meta['nextPageUrl'] = apiUrl('zhihu/history/'.$nextDay);
+            $meta['nextDay'] = date('Y-m-d', strtotime($nextDay));
         }
 
         return $this->response->collection($data, new ZhihuDailyTransformer())->setMeta($meta);
